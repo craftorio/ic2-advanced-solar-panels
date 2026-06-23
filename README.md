@@ -1,71 +1,87 @@
-# Advanced Solar Panels (decompiled / deobfuscated)
+# Advanced Solar Panels — 1.20.1 port
 
-Buildable source project for **Advanced Solar Panels 4.3.0** — an IC2 Experimental addon
-by Icedfire / SeNtiMeL / Chocohead. Recreated from `Advanced Solar Panels-4.3.0.jar` by
-decompiling and deobfuscating, so it can be studied and later ported.
+A Minecraft **1.20.1 / Forge** port of the classic **Advanced Solar Panels** IndustrialCraft 2
+addon, running against the modern **IC2: Refactored** fork.
 
-> ⚠️ This is the **original Minecraft 1.12.2** mod. It is *not* the 1.20.1 codebase yet.
-> It targets the classic IC2 Experimental (`ex112`) API. Porting to the 1.20.1
-> "IC2: Refactored" in `../ic2` is a separate follow-up step.
+- Original mod (… 1.12.2), by Icedfire / SeNtiMeL / Chocohead:
+  <https://www.curseforge.com/minecraft/mc-mods/advanced-solar-panels>
+- Target IC2 for 1.20.1+ (the fork this port depends on):
+  <https://github.com/HalfCooler/ic2>
 
-## What it adds
+Advanced Solar Panels adds a tier ladder of solar generators plus the machinery and materials that
+go with them.
 
-Advanced, Hybrid, Ultimate Hybrid and Quantum **solar panels** (escalating EU/t and
-internal storage), the **Molecular Transformer** (the molecular assembler that turns one
-item into another by pouring huge amounts of EU into it), the **Quantum Generator**, three
-chargeable **Solar Helmets** (armour), and the crafting components (sunnarium, iridium,
-irradiant parts, cores, …).
+## Content
 
-## How it was reconstructed
+| Block / item | Notes |
+|---|---|
+| Advanced Solar Panel | 8 EU/t day, 1 EU/t night, tier 1 |
+| Hybrid Solar Panel | 64 EU/t day, 8 EU/t night, tier 2 |
+| Ultimate Hybrid Solar Panel | 512 EU/t day, 64 EU/t night, tier 3 |
+| Quantum Solar Panel | 4096 EU/t day, 2048 EU/t night, tier 5 |
+| Molecular Transformer | pours EU into an item to transmute it into another |
+| Quantum Generator | redstone-gated high-tier free generator |
+| Advanced / Hybrid / Ultimate Solar Helmet | chargeable armour that generates EU and charges your inventory |
+| Crafting components | sunnarium, iridium, irradiant parts, cores, … |
 
-1. **Decompiled** the jar with [ForgeFlower](https://github.com/MinecraftForge/ForgeFlower)
-   2.0.629.0.
-2. **Deobfuscated** SRG names (`field_*` / `func_*`) back to MCP names using the
-   `mcp_stable-39-1.12` mapping CSVs (330 references). The build mapping (`stable_39`)
-   **must** match the CSVs used here, or some method names won't line up (e.g.
-   `NBTTagCompound.isEmpty()` in stable_39 vs `hasNoTags()` in snapshot_20171003).
-3. **Resources** (`assets/`, `mcmod.info`) copied verbatim from the jar.
+## Branches
 
-A handful of casts the decompiler dropped were restored by hand (the dyeable-armour
-`hasColor` override, the `MolecularOutput` network decode, and the two dynamic-GUI
-factory methods).
+| Branch | Contents |
+|---|---|
+| `forge/1.20.1` | **default** — the live 1.20.1 port (this) |
+| `forge/1.12.2` | the original mod, decompiled & deobfuscated, kept as a study reference |
 
-## Toolchain (legacy 1.12.2)
+## Requirements
 
 | | |
 |---|---|
-| Minecraft | 1.12.2 |
-| Forge | 14.23.5.2847 |
-| ForgeGradle | 2.3-SNAPSHOT |
-| Gradle | 4.9 (wrapper) |
-| Mappings | `stable_39` |
-| **Java** | **8 (required)** — FG 2.3 / Gradle 4.9 will not run on JDK 17/21 |
-
-## Dependencies (vendored in `libs/`)
-
-These are fetched at build time only as local files, because the IC2 maven is plain HTTP:
-
-- `libs/ic2-2.8.222-ex112-dev.jar` — from <http://maven.ic2.player.to/>
-  (`net.industrial-craft:industrialcraft-2:2.8.222-ex112:dev`). Already MCP-named;
-  provides the `ic2.core.*` internals the mod uses.
-- `libs/jei_1.12.2-4.16.1.1013.jar` — from <https://maven.blamejared.com/>
-  (`mezz.jei:jei_1.12.2`). Needed by `JEICompat`.
+| Minecraft | 1.20.1 |
+| Forge | 47.4.20 |
+| IC2 | [IC2: Refactored](https://github.com/HalfCooler/ic2) `2.10.26-ex120` or newer |
 
 ## Building
 
+This mod compiles against IC2's internal classes, so it needs a **dev jar** of IC2 — a jar of
+IC2's compiled, official-named (dev-mappings) classes and resources. It is **not** committed
+here; build it from a checkout of the IC2 fork next to this repo:
+
 ```sh
-# Point JAVA_HOME at a JDK 8 install, e.g. Temurin 8:
-export JAVA_HOME=/path/to/jdk8
+# 1. Build IC2 (produces build/classes + build/resources under official mappings)
+cd ../ic2
+./gradlew build
+
+# 2. Assemble the dev jar and drop it into this project's libs/
+jar cf ../advanced-solar-panels/libs/ic2-forge-2.10.26-ex120-dev.jar \
+    -C build/classes/java/main . \
+    -C build/resources/main .
+
+# 3. Build the addon
+cd ../advanced-solar-panels
 ./gradlew build
 ```
 
-Output: `build/libs/advanced-solar-panels-4.3.0.jar` (reobfuscated to runtime SRG names,
-matching the original distribution).
+Output: `build/libs/advanced_solar_panels-4.3.0.jar`. To test, install it into a 1.20.1 Forge
+profile alongside IC2, or run `./gradlew runClient` with IC2 on the mod classpath.
 
-To set up an IDE workspace: `./gradlew setupDecompWorkspace` then import as a Gradle
-project (using the JDK 8 above).
+> **Why a dev jar and not `fg.deobf` on the release jar?** IC2's release jar is reobfuscated,
+> so its overrides of Minecraft methods are stored under SRG names, and `fg.deobf` does not
+> reliably remap those inherited-override names — compilation breaks. The dev classes are already
+> official-named, so they are consumed with a plain `files(...)` dependency. Re-vendor the jar
+> whenever IC2 changes.
 
-## Links
+## How the port works
 
-- Original mod: <https://www.curseforge.com/minecraft/mc-mods/advanced-solar-panels>
-- Target IC2 for the 1.20.1 port: <https://github.com/HalfCooler/ic2>
+IC2: Refactored removed the addon platform the original hooked into (the `TeBlock` registry, the
+profile/texture system, `TeBlockFinalCallEvent` and the config-driven recipe loader). The processing
+core survives, so this port reuses IC2's generator/machine bases, the dynamic GUI system
+(`DynamicContainer` + `guidef/*.xml`) and the energy API, and reimplements registration with a Forge
+`DeferredRegister`. See **PORTING.md** for the full list of decisions and the features that were
+simplified or dropped.
+
+## Credits & licensing
+
+Advanced Solar Panels was created by **Icedfire** and maintained by **SeNtiMeL** and **Chocohead**;
+see the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/advanced-solar-panels) for the
+original. This port targets [HalfCooler's IC2: Refactored](https://github.com/HalfCooler/ic2).
+IndustrialCraft 2 and Advanced Solar Panels are the property of their respective authors; this
+repository is a compatibility port and is bound by their licensing terms.
