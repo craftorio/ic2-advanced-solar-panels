@@ -64,6 +64,14 @@ to the private `GuiParser.parse(InputStream, Class)` via reflection, then calls 
 - **The reskinned vanilla double stone slab** (`ItemDoubleSlab`) → dropped.
 - **The Molecular Transformer recipe set** was trimmed to a representative, vanilla-mappable subset;
   recipes referencing IC2 items and the old ore dictionary were left out.
-- **JEI integration** for the Molecular Transformer category is not yet ported.
 - **Crafting/assembly recipes** for the machines/items are not yet defined (obtainable via the creative
   tab); the in-world machinery all works.
+
+## JEI
+
+A custom **Molecular Transformer** recipe category (`compat/MolecularTransformerCategory` +
+`compat/AdvSolarJeiPlugin`) shows every `MolecularTransformerRecipes` entry as input → output with its
+EU cost, and lists the transformer block as the catalyst. The original mod's JEI code used IC2's old
+JEI-4 helper classes (`ic2.jeiIntegration.*`), which are gone; this is a fresh category built on the
+JEI 15.x (`mezz.jei.api`) public API. The other machines reuse no IC2 recipe categories of their own,
+so they have nothing extra to surface in JEI.
