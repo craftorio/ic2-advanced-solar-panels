@@ -60,7 +60,7 @@ cd ../advanced-solar-panels
 ./gradlew build
 ```
 
-Output: `build/libs/advanced_solar_panels-4.3.0.jar`. To test, install it into a 1.20.1 Forge
+Output: `build/libs/advanced_solar_panels-4.3.0-1.20.1.jar`. To test, install it into a 1.20.1 Forge
 profile alongside IC2, or run `./gradlew runClient` with IC2 on the mod classpath.
 
 > **Why a dev jar and not `fg.deobf` on the release jar?** IC2's release jar is reobfuscated,
