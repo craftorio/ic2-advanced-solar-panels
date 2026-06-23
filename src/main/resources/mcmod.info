@@ -1,0 +1,25 @@
+[
+	{
+		"authorList": [
+			"Icedfire", "SeNtiMeL", "Chocohead"
+		],
+		"credits": "Created by Chocohead, based on SeNtiMeL's versions, which were based on original the mod by Icedfire. Textures by Krezzard. Thanks mak326428 for help with developing in the past.",
+		"dependants": [],
+		"dependencies": [
+			"ic2"
+		],
+		"description": "Advanced solar panels is new generation of using solar power. This is addon for IndustrialCraft 2.",
+		"logoFile": "",
+		"mcversion": "1.12.2",
+		"modid": "advanced_solar_panels",
+		"name": "Advanced Solar Panels",
+		"parent": "",
+		"requiredMods": [
+			"ic2"
+		],
+		"screenshots": [],
+		"updateUrl": "",
+		"url": "https://forum.industrial-craft.net/thread/13494-ic2-exp-1-10-x-advanced-solar-panels-v4-0-4-hey-i-remember-that/",
+		"version": "${version}"
+	}
+]
