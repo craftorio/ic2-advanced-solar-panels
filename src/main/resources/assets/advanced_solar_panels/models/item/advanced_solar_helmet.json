@@ -1,6 +1,6 @@
 {
-	"parent": "ic2:item/default",
-	"textures": {
-		"layer0": "advanced_solar_panels:items/AdvSolarHelmet"
-	}
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "advanced_solar_panels:item/advsolarhelmet"
+  }
 }

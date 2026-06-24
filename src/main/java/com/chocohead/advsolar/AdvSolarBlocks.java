@@ -1,0 +1,156 @@
+package com.chocohead.advsolar;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.chocohead.advsolar.item.ItemSolarHelmet;
+import com.chocohead.advsolar.te.TileEntityAdvancedSolar;
+import com.chocohead.advsolar.te.TileEntityHybridSolar;
+import com.chocohead.advsolar.te.TileEntityMolecularTransformer;
+import com.chocohead.advsolar.te.TileEntityQuantumGenerator;
+import com.chocohead.advsolar.te.TileEntityQuantumSolar;
+import com.chocohead.advsolar.te.TileEntityUltimateHybridSolar;
+
+import ic2.core.block.tileentity.Ic2TileEntity;
+import ic2.core.block.tileentity.Ic2TileEntityBlock;
+import ic2.core.block.tileentity.Ic2TileEntityBlock.DefaultDrop;
+import ic2.core.util.Util;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType.BlockEntitySupplier;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+/**
+ * Forge registration for all Advanced Solar Panels content: the four solar panels, the
+ * molecular transformer and the quantum generator (each an {@link Ic2TileEntityBlock} with a
+ * matching {@link BlockEntityType} and {@link BlockItem}), the crafting components, the three
+ * solar helmets, and a creative tab.
+ */
+public final class AdvSolarBlocks {
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AdvancedSolarPanels.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AdvancedSolarPanels.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+			DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, AdvancedSolarPanels.MODID);
+	public static final DeferredRegister<CreativeModeTab> TABS =
+			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AdvancedSolarPanels.MODID);
+
+	// --- Advanced Solar Panel ---
+	public static final RegistryObject<Block> ADVANCED_SOLAR_PANEL = block("advanced_solar_panel", TileEntityAdvancedSolar.class, false);
+	public static final RegistryObject<BlockEntityType<TileEntityAdvancedSolar>> BE_ADVANCED_SOLAR_PANEL =
+			be("advanced_solar_panel", ADVANCED_SOLAR_PANEL, TileEntityAdvancedSolar::new);
+	public static final RegistryObject<Item> ITEM_ADVANCED_SOLAR_PANEL = item("advanced_solar_panel", ADVANCED_SOLAR_PANEL);
+
+	// --- Hybrid Solar Panel ---
+	public static final RegistryObject<Block> HYBRID_SOLAR_PANEL = block("hybrid_solar_panel", TileEntityHybridSolar.class, false);
+	public static final RegistryObject<BlockEntityType<TileEntityHybridSolar>> BE_HYBRID_SOLAR_PANEL =
+			be("hybrid_solar_panel", HYBRID_SOLAR_PANEL, TileEntityHybridSolar::new);
+	public static final RegistryObject<Item> ITEM_HYBRID_SOLAR_PANEL = item("hybrid_solar_panel", HYBRID_SOLAR_PANEL);
+
+	// --- Ultimate Hybrid Solar Panel ---
+	public static final RegistryObject<Block> ULTIMATE_SOLAR_PANEL = block("ultimate_solar_panel", TileEntityUltimateHybridSolar.class, false);
+	public static final RegistryObject<BlockEntityType<TileEntityUltimateHybridSolar>> BE_ULTIMATE_SOLAR_PANEL =
+			be("ultimate_solar_panel", ULTIMATE_SOLAR_PANEL, TileEntityUltimateHybridSolar::new);
+	public static final RegistryObject<Item> ITEM_ULTIMATE_SOLAR_PANEL = item("ultimate_solar_panel", ULTIMATE_SOLAR_PANEL);
+
+	// --- Quantum Solar Panel ---
+	public static final RegistryObject<Block> QUANTUM_SOLAR_PANEL = block("quantum_solar_panel", TileEntityQuantumSolar.class, false);
+	public static final RegistryObject<BlockEntityType<TileEntityQuantumSolar>> BE_QUANTUM_SOLAR_PANEL =
+			be("quantum_solar_panel", QUANTUM_SOLAR_PANEL, TileEntityQuantumSolar::new);
+	public static final RegistryObject<Item> ITEM_QUANTUM_SOLAR_PANEL = item("quantum_solar_panel", QUANTUM_SOLAR_PANEL);
+
+	// --- Molecular Transformer ---
+	public static final RegistryObject<Block> MOLECULAR_TRANSFORMER = block("molecular_transformer", TileEntityMolecularTransformer.class, true);
+	public static final RegistryObject<BlockEntityType<TileEntityMolecularTransformer>> BE_MOLECULAR_TRANSFORMER =
+			be("molecular_transformer", MOLECULAR_TRANSFORMER, TileEntityMolecularTransformer::new);
+	public static final RegistryObject<Item> ITEM_MOLECULAR_TRANSFORMER = item("molecular_transformer", MOLECULAR_TRANSFORMER);
+
+	// --- Quantum Generator ---
+	public static final RegistryObject<Block> QUANTUM_GENERATOR = block("quantum_generator", TileEntityQuantumGenerator.class, true);
+	public static final RegistryObject<BlockEntityType<TileEntityQuantumGenerator>> BE_QUANTUM_GENERATOR =
+			be("quantum_generator", QUANTUM_GENERATOR, TileEntityQuantumGenerator::new);
+	public static final RegistryObject<Item> ITEM_QUANTUM_GENERATOR = item("quantum_generator", QUANTUM_GENERATOR);
+
+	// --- Crafting components ---
+	public static final String[] CRAFTING_ITEMS = {
+			"sunnarium", "sunnarium_part", "sunnarium_alloy", "irradiant_uranium", "enriched_sunnarium",
+			"enriched_sunnarium_alloy", "irradiant_glass_pane", "iridium_iron_plate", "reinforced_iridium_iron_plate",
+			"irradiant_reinforced_plate", "iridium_ingot", "uranium_ingot", "mt_core", "quantum_core",
+	};
+	public static final Map<String, RegistryObject<Item>> CRAFTING = new LinkedHashMap<>();
+	static {
+		for (String name : CRAFTING_ITEMS) {
+			CRAFTING.put(name, ITEMS.register(name, () -> new Item(new Item.Properties())));
+		}
+	}
+
+	// --- Solar helmets ---
+	public static final RegistryObject<Item> ADVANCED_SOLAR_HELMET =
+			ITEMS.register("advanced_solar_helmet", () -> new ItemSolarHelmet(ItemSolarHelmet.SolarHelmetType.ADVANCED));
+	public static final RegistryObject<Item> HYBRID_SOLAR_HELMET =
+			ITEMS.register("hybrid_solar_helmet", () -> new ItemSolarHelmet(ItemSolarHelmet.SolarHelmetType.HYBRID));
+	public static final RegistryObject<Item> ULTIMATE_SOLAR_HELMET =
+			ITEMS.register("ultimate_solar_helmet", () -> new ItemSolarHelmet(ItemSolarHelmet.SolarHelmetType.ULTIMATE));
+
+	// --- Creative tab ---
+	public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main", () -> CreativeModeTab.builder()
+			.title(Component.translatable("itemGroup.advanced_solar_panels"))
+			.icon(() -> new ItemStack(ADVANCED_SOLAR_PANEL.get()))
+			.displayItems((params, output) -> {
+				output.accept(ADVANCED_SOLAR_PANEL.get());
+				output.accept(HYBRID_SOLAR_PANEL.get());
+				output.accept(ULTIMATE_SOLAR_PANEL.get());
+				output.accept(QUANTUM_SOLAR_PANEL.get());
+				output.accept(MOLECULAR_TRANSFORMER.get());
+				output.accept(QUANTUM_GENERATOR.get());
+				output.accept(ADVANCED_SOLAR_HELMET.get());
+				output.accept(HYBRID_SOLAR_HELMET.get());
+				output.accept(ULTIMATE_SOLAR_HELMET.get());
+				for (RegistryObject<Item> crafting : CRAFTING.values()) {
+					output.accept(crafting.get());
+				}
+			})
+			.build());
+
+	private AdvSolarBlocks() {
+	}
+
+	private static BlockBehaviour.Properties machineProps() {
+		return BlockBehaviour.Properties.of()
+				.mapColor(MapColor.COLOR_LIGHT_GRAY)
+				.strength(3.0F, 15.0F)
+				.requiresCorrectToolForDrops()
+				.sound(SoundType.METAL);
+	}
+
+	private static RegistryObject<Block> block(String name, Class<? extends Ic2TileEntity> teClass, boolean canActive) {
+		return BLOCKS.register(name, () -> Ic2TileEntityBlock.create(machineProps(), teClass, canActive, DefaultDrop.Self, Util.horizontalFacings, false));
+	}
+
+	private static <T extends Ic2TileEntity> RegistryObject<BlockEntityType<T>> be(String name, RegistryObject<Block> block, BlockEntitySupplier<T> factory) {
+		return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
+	}
+
+	private static RegistryObject<Item> item(String name, RegistryObject<Block> block) {
+		return ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+	}
+
+	public static void register(IEventBus bus) {
+		BLOCKS.register(bus);
+		ITEMS.register(bus);
+		BLOCK_ENTITIES.register(bus);
+		TABS.register(bus);
+	}
+}
