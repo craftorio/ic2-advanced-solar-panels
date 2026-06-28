@@ -38,5 +38,7 @@
   "advanced_solar_panels.gui.max": "MAX",
   "advanced_solar_panels.gui.storage": "Емкость:",
   "advanced_solar_panels.gui.generating": "Генерация:",
+  "advanced_solar_panels.tooltip.generation.day": "День: %s EU/t",
+  "advanced_solar_panels.tooltip.generation.night": "Ночь/дождь: %s EU/t",
   "itemGroup.advanced_solar_panels": "Advanced Solar Panels"
 }

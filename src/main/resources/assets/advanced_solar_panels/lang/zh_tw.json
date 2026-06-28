@@ -38,6 +38,8 @@
   "advanced_solar_panels.gui.max": "最大",
   "advanced_solar_panels.gui.storage": "儲存：",
   "advanced_solar_panels.gui.generating": "產生：",
+  "advanced_solar_panels.tooltip.generation.day": "白天：%s EU/t",
+  "advanced_solar_panels.tooltip.generation.night": "夜晚/雨天：%s EU/t",
   "advanced_solar_panels.gui.rightIC2": "%s需要IndustrialCraft² 2.6.%d-ex10或以上版本",
   "advanced_solar_panels.gui.wrongIC2": "但是現在的使用的版本為%s",
   "advanced_solar_panels.gui.IC2C": "And so is not compatible with IndustrialCraft² Classic",

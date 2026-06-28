@@ -1,5 +1,6 @@
 package com.chocohead.advsolar.te;
 
+import com.chocohead.advsolar.SolarPanelType;
 import com.chocohead.advsolar.gui.GuiDefs;
 
 import ic2.core.ContainerBase;
@@ -40,6 +41,11 @@ public abstract class TileEntitySolarPanel extends TileEntityBaseGenerator imple
 	private int ticker;
 	private boolean hasSky;
 	private boolean canRain;
+
+	protected TileEntitySolarPanel(BlockEntityType<? extends TileEntitySolarPanel> type, BlockPos pos, BlockState state,
+			SolarPanelType panelType) {
+		this(type, pos, state, panelType.dayPower, panelType.nightPower, panelType.maxStorage, panelType.tier);
+	}
 
 	protected TileEntitySolarPanel(BlockEntityType<? extends TileEntitySolarPanel> type, BlockPos pos, BlockState state,
 			int dayPower, int nightPower, int maxStorage, int tier) {

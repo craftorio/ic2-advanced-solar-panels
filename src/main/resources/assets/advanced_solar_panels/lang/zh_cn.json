@@ -38,5 +38,7 @@
   "advanced_solar_panels.gui.max": "MAX",
   "advanced_solar_panels.gui.storage": "存储",
   "advanced_solar_panels.gui.generating": "产生：",
+  "advanced_solar_panels.tooltip.generation.day": "白天：%s EU/t",
+  "advanced_solar_panels.tooltip.generation.night": "夜晚/雨天：%s EU/t",
   "itemGroup.advanced_solar_panels": "Advanced Solar Panels"
 }

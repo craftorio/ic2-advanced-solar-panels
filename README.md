@@ -13,15 +13,35 @@ go with them.
 
 ## Content
 
+### Solar panels
+
+Generation requires a clear view of the sky. At night, or during rain/thunder, output drops to the
+night value. Max output and storage are shown in JEI item tooltips.
+
+| Panel | Day | Night/rain | Storage | Max output | Tier |
+|---|---:|---:|---:|---:|---:|
+| Advanced Solar Panel | 8 EU/t | 1 EU/t | 32,000 EU | 32 EU/t | 1 |
+| Hybrid Solar Panel | 64 EU/t | 8 EU/t | 100,000 EU | 128 EU/t | 2 |
+| Ultimate Hybrid Solar Panel | 512 EU/t | 64 EU/t | 1,000,000 EU | 512 EU/t | 3 |
+| Quantum Solar Panel | 4096 EU/t | 2048 EU/t | 10,000,000 EU | 8192 EU/t | 5 |
+
+### Solar helmets
+
+While worn under the open sky, helmets generate the same EU/t as their matching panel tier and
+charge electric items in your inventory.
+
+| Helmet | Day | Night/rain | Tier |
+|---|---:|---:|---:|
+| Advanced Solar Helmet | 8 EU/t | 1 EU/t | 1 |
+| Hybrid Solar Helmet | 64 EU/t | 8 EU/t | 2 |
+| Ultimate Hybrid Solar Helmet | 512 EU/t | 64 EU/t | 3 |
+
+### Other blocks
+
 | Block / item | Notes |
 |---|---|
-| Advanced Solar Panel | 8 EU/t day, 1 EU/t night, tier 1 |
-| Hybrid Solar Panel | 64 EU/t day, 8 EU/t night, tier 2 |
-| Ultimate Hybrid Solar Panel | 512 EU/t day, 64 EU/t night, tier 3 |
-| Quantum Solar Panel | 4096 EU/t day, 2048 EU/t night, tier 5 |
 | Molecular Transformer | pours EU into an item to transmute it into another |
-| Quantum Generator | redstone-gated high-tier free generator |
-| Advanced / Hybrid / Ultimate Solar Helmet | chargeable armour that generates EU and charges your inventory |
+| Quantum Generator | redstone-gated high-tier free generator (512 EU/t, tier 3) |
 | Crafting components | sunnarium, iridium, irradiant parts, cores, … |
 
 ## Branches

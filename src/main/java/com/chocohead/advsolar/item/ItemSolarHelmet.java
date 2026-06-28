@@ -1,15 +1,23 @@
 package com.chocohead.advsolar.item;
 
+import java.util.List;
+
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IMetalArmor;
 import ic2.core.item.armor.ItemArmorElectric;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A chargeable solar helmet. While worn under the open sky it generates EU (full output in daylight,
@@ -68,6 +76,18 @@ public class ItemSolarHelmet extends ItemArmorElectric implements IMetalArmor {
 	@Override
 	public boolean isMetalArmor(ItemStack stack, Player player) {
 		return true;
+	}
+
+	@Override
+	public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip,
+			@NotNull TooltipFlag flag) {
+		super.appendHoverText(stack, level, tooltip, flag);
+		tooltip.add(Component.translatable("advanced_solar_panels.tooltip.generation.day", this.type.dayEU)
+				.withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("advanced_solar_panels.tooltip.generation.night", this.type.nightEU)
+				.withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("ic2.item.tooltip.power_tier", this.type.tier)
+				.withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

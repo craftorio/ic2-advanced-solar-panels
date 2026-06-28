@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.chocohead.advsolar.item.ItemSolarHelmet;
+import com.chocohead.advsolar.item.ItemSolarPanel;
 import com.chocohead.advsolar.te.TileEntityAdvancedSolar;
 import com.chocohead.advsolar.te.TileEntityHybridSolar;
 import com.chocohead.advsolar.te.TileEntityMolecularTransformer;
@@ -51,25 +52,25 @@ public final class AdvSolarBlocks {
 	public static final RegistryObject<Block> ADVANCED_SOLAR_PANEL = block("advanced_solar_panel", TileEntityAdvancedSolar.class, false);
 	public static final RegistryObject<BlockEntityType<TileEntityAdvancedSolar>> BE_ADVANCED_SOLAR_PANEL =
 			be("advanced_solar_panel", ADVANCED_SOLAR_PANEL, TileEntityAdvancedSolar::new);
-	public static final RegistryObject<Item> ITEM_ADVANCED_SOLAR_PANEL = item("advanced_solar_panel", ADVANCED_SOLAR_PANEL);
+	public static final RegistryObject<Item> ITEM_ADVANCED_SOLAR_PANEL = solarPanelItem("advanced_solar_panel", ADVANCED_SOLAR_PANEL, SolarPanelType.ADVANCED);
 
 	// --- Hybrid Solar Panel ---
 	public static final RegistryObject<Block> HYBRID_SOLAR_PANEL = block("hybrid_solar_panel", TileEntityHybridSolar.class, false);
 	public static final RegistryObject<BlockEntityType<TileEntityHybridSolar>> BE_HYBRID_SOLAR_PANEL =
 			be("hybrid_solar_panel", HYBRID_SOLAR_PANEL, TileEntityHybridSolar::new);
-	public static final RegistryObject<Item> ITEM_HYBRID_SOLAR_PANEL = item("hybrid_solar_panel", HYBRID_SOLAR_PANEL);
+	public static final RegistryObject<Item> ITEM_HYBRID_SOLAR_PANEL = solarPanelItem("hybrid_solar_panel", HYBRID_SOLAR_PANEL, SolarPanelType.HYBRID);
 
 	// --- Ultimate Hybrid Solar Panel ---
 	public static final RegistryObject<Block> ULTIMATE_SOLAR_PANEL = block("ultimate_solar_panel", TileEntityUltimateHybridSolar.class, false);
 	public static final RegistryObject<BlockEntityType<TileEntityUltimateHybridSolar>> BE_ULTIMATE_SOLAR_PANEL =
 			be("ultimate_solar_panel", ULTIMATE_SOLAR_PANEL, TileEntityUltimateHybridSolar::new);
-	public static final RegistryObject<Item> ITEM_ULTIMATE_SOLAR_PANEL = item("ultimate_solar_panel", ULTIMATE_SOLAR_PANEL);
+	public static final RegistryObject<Item> ITEM_ULTIMATE_SOLAR_PANEL = solarPanelItem("ultimate_solar_panel", ULTIMATE_SOLAR_PANEL, SolarPanelType.ULTIMATE);
 
 	// --- Quantum Solar Panel ---
 	public static final RegistryObject<Block> QUANTUM_SOLAR_PANEL = block("quantum_solar_panel", TileEntityQuantumSolar.class, false);
 	public static final RegistryObject<BlockEntityType<TileEntityQuantumSolar>> BE_QUANTUM_SOLAR_PANEL =
 			be("quantum_solar_panel", QUANTUM_SOLAR_PANEL, TileEntityQuantumSolar::new);
-	public static final RegistryObject<Item> ITEM_QUANTUM_SOLAR_PANEL = item("quantum_solar_panel", QUANTUM_SOLAR_PANEL);
+	public static final RegistryObject<Item> ITEM_QUANTUM_SOLAR_PANEL = solarPanelItem("quantum_solar_panel", QUANTUM_SOLAR_PANEL, SolarPanelType.QUANTUM);
 
 	// --- Molecular Transformer ---
 	public static final RegistryObject<Block> MOLECULAR_TRANSFORMER = block("molecular_transformer", TileEntityMolecularTransformer.class, true);
@@ -141,6 +142,10 @@ public final class AdvSolarBlocks {
 
 	private static <T extends Ic2TileEntity> RegistryObject<BlockEntityType<T>> be(String name, RegistryObject<Block> block, BlockEntitySupplier<T> factory) {
 		return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
+	}
+
+	private static RegistryObject<Item> solarPanelItem(String name, RegistryObject<Block> block, SolarPanelType type) {
+		return ITEMS.register(name, () -> new ItemSolarPanel(block.get(), type));
 	}
 
 	private static RegistryObject<Item> item(String name, RegistryObject<Block> block) {
