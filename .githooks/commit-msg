@@ -1,0 +1,11 @@
+#!/bin/sh
+# Reject commit messages that contain a co-author attribution.
+
+set -eu
+
+pattern='co-authored[- ]by|co authored by'
+
+if grep -iE "$pattern" "$1" >/dev/null; then
+	echo "commit-msg: co-author attribution is not allowed in commit messages." >&2
+	exit 1
+fi

@@ -22,3 +22,6 @@ out/
 
 # Vendored IC2 dev jar — not committed; build it from ../ic2 (see README).
 /libs/*.jar
+
+# Global excludes ignore /AGENTS.md. This repo tracks it.
+!/AGENTS.md

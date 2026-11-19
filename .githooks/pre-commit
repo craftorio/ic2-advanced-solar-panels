@@ -1,0 +1,31 @@
+#!/bin/sh
+# Reject staged files that contain a co-author attribution.
+# AGENTS.md and .githooks/ name the ban and are skipped.
+
+set -eu
+
+pattern='co-authored[- ]by|co authored by'
+fail=0
+list=$(mktemp)
+trap 'rm -f "$list"' EXIT
+
+git diff --cached --name-only --diff-filter=ACMR > "$list"
+
+while IFS= read -r file; do
+	[ -n "$file" ] || continue
+	case "$file" in
+		AGENTS.md|.githooks/*) continue ;;
+	esac
+
+	numstat=$(git diff --cached --numstat -- "$file" || true)
+	case "$numstat" in
+		"-"*) continue ;;
+	esac
+
+	if git show ":$file" | grep -iE "$pattern" >/dev/null; then
+		echo "pre-commit: $file contains a co-author attribution. Remove it." >&2
+		fail=1
+	fi
+done < "$list"
+
+exit "$fail"
