@@ -1,7 +1,7 @@
 name: Release
 
 # Tag formats:
-#   release/<mod_version>+<ic2_version>  e.g. release/4.3.0+2.10.26-ex120
+#   release/<mod_version>+<ic2_version>  e.g. release/4.3.0+2.10.34-ex120
 #   <mod_version>                        e.g. 4.3.0  (IC2 version from gradle.properties)
 on:
   push:
@@ -17,7 +17,7 @@ on:
       ic2_version:
         description: IC2 version tag
         required: true
-        default: "2.10.26-ex120"
+        default: "2.10.34-ex120"
 
 concurrency:
   group: release-${{ github.ref }}
@@ -84,7 +84,7 @@ jobs:
         run: |
           ic2_version="${{ steps.versions.outputs.ic2_version }}"
           git clone --depth 1 --branch "$ic2_version" \
-            https://github.com/HalfCooler/ic2.git ../ic2
+            https://github.com/craftorio/ic2.git ../ic2
           cd ../ic2
           chmod +x gradlew
           ./gradlew build --no-daemon -x test

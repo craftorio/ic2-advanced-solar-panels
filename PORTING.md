@@ -1,7 +1,7 @@
 # Porting notes — Advanced Solar Panels 1.12.2 → 1.20.1 / IC2: Refactored
 
 This file records the non-obvious decisions made porting the classic 1.12.2 addon
-(`forge/1.12.2` branch) to Minecraft 1.20.1 against [IC2: Refactored](https://github.com/HalfCooler/ic2)
+(`forge/1.12.2` branch) to Minecraft 1.20.1 against [IC2: Refactored](https://github.com/craftorio/ic2)
 (`forge/1.20.1`, the default branch). It is the sibling of `advanced-machines`'s PORTING.md and
 shares most of the same gotchas.
 

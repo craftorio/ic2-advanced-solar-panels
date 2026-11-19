@@ -6,7 +6,7 @@ addon, running against the modern **IC2: Refactored** fork.
 - Original mod (… 1.12.2), by Icedfire / SeNtiMeL / Chocohead:
   <https://www.curseforge.com/minecraft/mc-mods/advanced-solar-panels>
 - Target IC2 for 1.20.1+ (the fork this port depends on):
-  <https://github.com/HalfCooler/ic2>
+  <https://github.com/craftorio/ic2>
 
 Advanced Solar Panels adds a tier ladder of solar generators plus the machinery and materials that
 go with them.
@@ -57,7 +57,7 @@ charge electric items in your inventory.
 |---|---|
 | Minecraft | 1.20.1 |
 | Forge | 47.4.20 |
-| IC2 | [IC2: Refactored](https://github.com/HalfCooler/ic2) `2.10.26-ex120` or newer |
+| IC2 | [IC2: Refactored](https://github.com/craftorio/ic2) `2.10.34-ex120` or newer |
 
 ## Building
 
@@ -71,7 +71,7 @@ cd ../ic2
 ./gradlew build
 
 # 2. Assemble the dev jar and drop it into this project's libs/
-jar cf ../advanced-solar-panels/libs/ic2-forge-2.10.26-ex120-dev.jar \
+jar cf ../advanced-solar-panels/libs/ic2-forge-2.10.34-ex120-dev.jar \
     -C build/classes/java/main . \
     -C build/resources/main .
 
@@ -102,6 +102,6 @@ simplified or dropped.
 
 Advanced Solar Panels was created by **Icedfire** and maintained by **SeNtiMeL** and **Chocohead**;
 see the [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/advanced-solar-panels) for the
-original. This port targets [HalfCooler's IC2: Refactored](https://github.com/HalfCooler/ic2).
+original. This port targets [IC2: Refactored](https://github.com/craftorio/ic2).
 IndustrialCraft 2 and Advanced Solar Panels are the property of their respective authors; this
 repository is a compatibility port and is bound by their licensing terms.

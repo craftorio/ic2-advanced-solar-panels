@@ -2,7 +2,7 @@
 
 Minecraft **1.20.1 / Forge 47.4.20** port of the Advanced Solar Panels IC2 addon
 (mod id `advanced_solar_panels`, version 4.3.2, Java 17). It targets
-[IC2: Refactored](https://github.com/HalfCooler/ic2) `2.10.26-ex120` or newer.
+[IC2: Refactored](https://github.com/craftorio/ic2) `2.10.34-ex120` or newer.
 The 1.12.2 original lives on `forge/1.12.2`; this branch is `forge/1.20.1`.
 
 The mod adds a tier of solar generators, matching solar helmets, the molecular
